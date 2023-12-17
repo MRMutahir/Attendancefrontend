@@ -1,0 +1,57 @@
+.addmin_topbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.addmin_topbar_wrapper {
+  height: 50px;
+  flex: 1;
+  margin: 0px 20px;
+  padding: 30px;
+  border-radius: 10px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+}
+
+.Title {
+  font-size: 20px;
+}
+
+.addmin_tabel_wrapper {
+  height: auto;
+  flex: 1;
+  margin: 0px 20px;
+  padding: 30px;
+  border-radius: 10px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+}
+.tableItemMain {
+  display: flex;
+  list-style: none;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.studentsDetails_wrapper{
+  height: auto;
+  flex: 1;
+  margin: 0px 20px;
+  padding: 30px;
+  border-radius: 10px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+}
