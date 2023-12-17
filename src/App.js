@@ -8,6 +8,7 @@ import {
 import "./App.css";
 import Home from "./pages/home/Home";
 import Login from "./pages/Login/Login";
+import AddStudentModal from "./components/Modal/Modal";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -46,6 +47,7 @@ const App = () => {
               element={isLoggedIn ? <Home /> : <Navigate to="/login" />}
             />
             <Route path="/login" element={<Login />} />
+            <Route path="/Modal" element={<AddStudentModal />} />
           </Routes>
         )}
       </div>

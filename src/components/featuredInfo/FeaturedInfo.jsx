@@ -6,6 +6,7 @@ import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import "./featuredInfo.css";
+import { Link } from "react-router-dom";
 
 const FeaturedInfo = () => {
   return (
@@ -26,7 +27,9 @@ const FeaturedInfo = () => {
               <span>
                 <AddIcon />
               </span>
-              <span>Add Student</span>
+              <Link to="/AddStudentModal">
+                <span>Add Student</span>
+              </Link>
             </Button>
           </div>
         </div>
