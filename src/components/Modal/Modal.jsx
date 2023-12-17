@@ -8,7 +8,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  height:auto;
+  height: auto;
   color: #333;
 `;
 
@@ -66,7 +66,7 @@ function Modal() {
     email: "",
     phoneNumber: "",
   });
-  console.log(formData,"formData>>>>>>>>>>>>>>>>>>>");
+  console.log(formData, "formData>>>>>>>>>>>>>>>>>>>");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -106,7 +106,7 @@ function Modal() {
     <Container>
       <FormWrapper>
         <Title>Simple Form</Title>
-        <form onSubmit={handleSubmit}>
+        <div onSubmit={handleSubmit}>
           <InputDiv>
             <label>First Name:</label>
             <input
@@ -168,7 +168,7 @@ function Modal() {
             />
           </InputDiv>
           <Button type="submit">Submit</Button>
-        </form>
+        </div>
       </FormWrapper>
     </Container>
   );

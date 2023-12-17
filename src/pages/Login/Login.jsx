@@ -33,7 +33,6 @@ const Input = styled.input`
   width: 100%;
   background-color: transparent;
   outline: inherit;
-
   color: ${({ theme }) => theme.textSoft};
 `;
 const Button = styled.button`
@@ -48,20 +47,13 @@ const Button = styled.button`
 
 const More = styled.div`
   display: flex;
-
   font-size: 12px;
   margin-top: 10px;
   padding: 10px;
 `;
 
-const Links = styled.div`
-  display: flex;
-  margin-left: 30px;
-`;
 
-const Link = styled.div`
-  margin-left: 30px;
-`;
+
 function Sign() {
   const [name, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -78,16 +70,12 @@ function Sign() {
       });
 
       if (response.ok) {
-        // Handle successful login
         console.log("Login successful");
-
-        // Save user information to local storage
         const userData = { name, password };
         localStorage.setItem("userData", JSON.stringify(userData));
 
         navigate("/");
       } else {
-        // Handle login failure
         console.error("Login failed");
       }
     } catch (error) {
@@ -99,7 +87,6 @@ function Sign() {
     <Container>
       <Wrapper>
         <Title>LOGIN</Title>
-
         <Input
           placeholder="username"
           value={name}
@@ -119,20 +106,3 @@ function Sign() {
 
 export default Sign;
 
-// function Sign() {
-//   return (
-//     <Container>
-//       <Wrapper>
-//         <Title>LOGIN</Title>
-
-//         <Input
-//           placeholder="username"
-//         />
-//         <Input type="password" placeholder="password" />
-//         <Button>Sign in</Button>
-//       </Wrapper>
-//     </Container>
-//   );
-// }
-
-// export default Sign;
