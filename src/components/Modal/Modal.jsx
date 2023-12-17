@@ -1,11 +1,63 @@
-// import React from 'react'
+import React from "react";
 import { useState } from "react";
-// import "./attendence.css";
-import { IoMdPersonAdd } from "react-icons/io";
-import { PiNotePencilBold } from "react-icons/pi";
-import { FaCamera } from "react-icons/fa";
+import styled from "styled-components";
 
-const AddStudentModal = () => {
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  height:auto;
+  color: #333;
+`;
+
+const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f0f5f9;
+  border: 1px solid #ccc;
+  padding: 20px;
+  gap: 10px;
+  width: 300px;
+`;
+
+const Title = styled.h1`
+  font-size: 24px;
+`;
+
+const InputDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 10px;
+    width: 100%;
+    background-color: transparent;
+    outline: none;
+    color: #333;
+  }
+`;
+
+const Button = styled.button`
+  border: none;
+  padding: 10px 20px;
+  border-radius: 3px;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #1a73e8;
+  color: #fff;
+`;
+function Modal() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -13,133 +65,113 @@ const AddStudentModal = () => {
     password: "",
     email: "",
     phoneNumber: "",
-    image: null,
   });
+  console.log(formData,"formData>>>>>>>>>>>>>>>>>>>");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    setFormData({ ...formData, image: file });
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic (e.g., send data to server)
-    console.log("Form data submitted:", formData);
-    // Reset form data after submission
-    setFormData({
-      firstName: "",
-      lastName: "",
-      course: "",
-      password: "",
-      email: "",
-      phoneNumber: "",
-      image: null,
-    });
+
+    try {
+      const response = await fetch("/addmin/add/students", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        console.log("Student added successfully");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          course: "",
+          password: "",
+          email: "",
+          phoneNumber: "",
+        });
+      } else {
+        console.error("Failed to add student");
+      }
+    } catch (error) {
+      console.error("Error during form submission:", error);
+    }
   };
   return (
-    <div className="container">
-      <div
-        className="topbar"
-        style={{ justifyContent: "space-between", display: "flex" }}
-      >
-        <span className="icon">
-          <PiNotePencilBold />
-        </span>
-        <h1> Add Attendance</h1>
-        <span className="icon">
-          <IoMdPersonAdd />
-        </span>
-      </div>
-      <div>
-        <div className="circle_pic">
-          <span>
-            <FaCamera />
-          </span>
-        </div>
-        <div>
-          <h2>Attendance Page</h2>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="image">Upload Image:</label>
-              <input
-                type="file"
-                id="image"
-                name="image"
-                accept="image/*"
-                onChange={handleImageUpload}
-              />
-            </div>
-            <div>
-              <label htmlFor="firstName">First Name:</label>
-              <input
-                type="text"
-                id="firstName"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="lastName">Last Name:</label>
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="course">Course:</label>
-              <input
-                type="text"
-                id="course"
-                name="course"
-                value={formData.course}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="password">Password:</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="email">Email:</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="phoneNumber">Phone Number:</label>
-              <input
-                type="tel"
-                id="phoneNumber"
-                name="phoneNumber"
-                value={formData.phoneNumber}
-                onChange={handleInputChange}
-              />
-            </div>
-            <button type="submit">Submit</button>
-          </form>
-        </div>
-      </div>
-    </div>
+    <Container>
+      <FormWrapper>
+        <Title>Simple Form</Title>
+        <form onSubmit={handleSubmit}>
+          <InputDiv>
+            <label>First Name:</label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleInputChange}
+            />
+          </InputDiv>
+          <InputDiv>
+            <label>Last Name:</label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleInputChange}
+            />
+          </InputDiv>
+          <InputDiv>
+            <label>Course:</label>
+            <input
+              type="text"
+              id="course"
+              name="course"
+              value={formData.course}
+              onChange={handleInputChange}
+            />
+          </InputDiv>
+          <InputDiv>
+            <label>Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+            />
+          </InputDiv>
+          <InputDiv>
+            <label>Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+          </InputDiv>
+          <InputDiv>
+            <label>Phone Number:</label>
+            <input
+              type="tel"
+              id="phoneNumber"
+              name="phoneNumber"
+              value={formData.phoneNumber}
+              onChange={handleInputChange}
+            />
+          </InputDiv>
+          <Button type="submit">Submit</Button>
+        </form>
+      </FormWrapper>
+    </Container>
   );
-};
+}
 
-export default AddStudentModal;
+export default Modal;

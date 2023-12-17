@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/home/Home";
 import Login from "./pages/Login/Login";
@@ -15,30 +10,22 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Simulate an API call to check login status
-    const fetchData = async () => {
-      try {
-        const response = await fetch("your-api-endpoint"); // Replace with your API endpoint
-        const data = await response.json();
+    // Check if user data is present in local storage
+    const userData = localStorage.getItem("userData");
 
-        // Update login status based on API response
-        setIsLoggedIn(data.isLoggedIn);
+    if (userData) {
+      // Update login status based on the presence of user data
+      setIsLoggedIn(true);
+    }
 
-        // Set loading to false once the data is fetched
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []); // Empty dependency array ensures the effect runs once on mount
+    // Set loading to false once the data is checked
+    setLoading(false);
+  }, []);
 
   return (
     <Router>
       <div className="container">
         {loading ? (
-          // Display a loading spinner or message while fetching data
           <p>Loading...</p>
         ) : (
           <Routes>
@@ -47,7 +34,7 @@ const App = () => {
               element={isLoggedIn ? <Home /> : <Navigate to="/login" />}
             />
             <Route path="/login" element={<Login />} />
-            <Route path="/Modal" element={<AddStudentModal />} />
+            <Route path="/AddStudentModal" element={<AddStudentModal />} />
           </Routes>
         )}
       </div>

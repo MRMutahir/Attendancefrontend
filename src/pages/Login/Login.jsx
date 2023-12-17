@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -61,8 +62,39 @@ const Links = styled.div`
 const Link = styled.div`
   margin-left: 30px;
 `;
-
 function Sign() {
+  const [name, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleSignIn = async () => {
+    try {
+      const response = await fetch("/addmin/auth/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, password }),
+      });
+
+      if (response.ok) {
+        // Handle successful login
+        console.log("Login successful");
+
+        // Save user information to local storage
+        const userData = { name, password };
+        localStorage.setItem("userData", JSON.stringify(userData));
+
+        navigate("/");
+      } else {
+        // Handle login failure
+        console.error("Login failed");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -70,15 +102,37 @@ function Sign() {
 
         <Input
           placeholder="username"
-
-          // value={username}
-          // ref={username}
+          value={name}
+          onChange={(e) => setUsername(e.target.value)}
         />
-        <Input type="password" placeholder="password" />
-        <Button>Sign in</Button>
+        <Input
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button onClick={handleSignIn}>Sign in</Button>
       </Wrapper>
     </Container>
   );
 }
 
 export default Sign;
+
+// function Sign() {
+//   return (
+//     <Container>
+//       <Wrapper>
+//         <Title>LOGIN</Title>
+
+//         <Input
+//           placeholder="username"
+//         />
+//         <Input type="password" placeholder="password" />
+//         <Button>Sign in</Button>
+//       </Wrapper>
+//     </Container>
+//   );
+// }
+
+// export default Sign;
